@@ -28,4 +28,12 @@ export class Auth {
   logout(){
     this.msalService.logout();
   }
+
+  getUserName(){
+    if(this.isLogedIn()){
+      return this.msalService.instance.getActiveAccount()?.name
+    }
+
+    return '';
+  }
 }
