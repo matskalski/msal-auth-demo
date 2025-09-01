@@ -2,7 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessC
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { MSAL_INSTANCE, MsalService } from '@azure/msal-angular';
+import { MSAL_INSTANCE, MsalBroadcastService, MsalService } from '@azure/msal-angular';
 import { IPublicClientApplication, PublicClientApplication } from "@azure/msal-browser"
 import { environment } from '../environments/environment.development';
 
@@ -24,6 +24,7 @@ export const appConfig: ApplicationConfig = {
       provide: MSAL_INSTANCE,
       useFactory: MsalInstanceFactory
     },
-    MsalService
+    MsalService,
+    MsalBroadcastService
   ]
 };

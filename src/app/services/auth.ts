@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { MsalService } from '@azure/msal-angular';
 import { AuthenticationResult } from '@azure/msal-browser';
 
@@ -8,8 +9,21 @@ import { AuthenticationResult } from '@azure/msal-browser';
 export class Auth {
   //msalService: MsalService = inject(MsalService);
 
-  constructor(private  msalService: MsalService) {
-    this.msalService.initialize()    
+  constructor(private  msalService: MsalService,
+    private router: Router
+  ) {
+    //this.msalService.initialize() 
+    this.initMsal();
+  }
+
+  initMsal(): void {
+    this.msalService
+      .handleRedirectObservable()
+      .subscribe((res: AuthenticationResult | null) => {
+        if(res){
+          this.router.navigate(['/'])
+        }
+      })
   }
 
   isLogedIn() : boolean {
